@@ -9,6 +9,6 @@ Convert your mTLS .pfx file to cert/key PEM format:
 `openssl pkcs12 -in <mtls_cert_file>.pfx -nocerts -out key.pem -nodes`  
 
 #### Instructions
-* Clone the repo and cd to this folder
+* Clone the repo and cd to `./python`
 * Start a Pipenv shell: `pipenv shell`
 * Run the script: `python script.py`

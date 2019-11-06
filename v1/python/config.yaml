@@ -1,0 +1,5 @@
+site_id: ''
+username: ''
+password: ''
+cert_file: '/path/to/cert.pem'
+key_file: '/path/to/key.pem'

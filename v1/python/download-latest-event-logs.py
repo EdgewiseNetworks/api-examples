@@ -7,31 +7,19 @@
 import os
 import glob
 import requests
+import yaml
+from edgeutils import ApiSession
 
-site_id = ''
-username = ''
-password = ''
-cert_file = '/path/to/cert.pem'
-key_file = '/path/to/key.pem'
 logs_dir = './logs'
 
-# Authenticate
-response = requests.post(
-    url = 'https://console.edgewise.services/auth/login',
-    json={'username':username, 'password':password},
-    cert=(cert_file, key_file),
-)
-response.raise_for_status()
-access_token = response.json()['accessToken']
+with open('config.yaml') as f:
+    config = yaml.safe_load(f)
+
+api = ApiSession(config)
 
 # Get event logs list, sort, and limit to newest 5
-response = requests.get(
-    url = 'https://console.edgewise.services/api/v1/sites/{}/audit-event-exports/recent'.format(site_id),
-    headers = {'authorization':'Bearer %s' % access_token},
-    cert=(cert_file, key_file),
-)
-response.raise_for_status()
-event_logs = sorted(response.json(), key=lambda x: x['filename'])[-5:]
+event_logs = api.get('audit-event-exports/recent')
+event_logs = sorted(event_logs, key=lambda x: x['filename'])[-5:]
 
 # Get local logs and drop these entries from event logs list
 local_logs = [x.strip('./') for x in glob.glob('{}/audit_events.*.json'.format(logs_dir))]

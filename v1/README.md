@@ -10,5 +10,6 @@ Convert your mTLS .pfx file to cert/key PEM format:
 
 #### Instructions
 * Clone the repo and cd to `./python`
+* Update `config.yaml`
 * Start a Pipenv shell: `pipenv shell`
 * Run the script: `python script.py`

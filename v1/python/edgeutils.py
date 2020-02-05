@@ -49,6 +49,8 @@ class ApiSession:
             cert=self.cert,
         )
         response.raise_for_status()
+        if not response.text:
+            return
         return response.json()
 
     def post(self, url, payload):
@@ -61,6 +63,8 @@ class ApiSession:
             cert=self.cert,
         )
         response.raise_for_status()
+        if not response.text:
+            return
         return response.json()
 
     def delete(self, url):
@@ -72,7 +76,9 @@ class ApiSession:
             cert=self.cert,
         )
         response.raise_for_status()
-        return response
+        if not response.text:
+            return
+        return response.json()
 
     def _is_url(self, url):
       try:

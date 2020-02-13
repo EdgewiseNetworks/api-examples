@@ -9,8 +9,8 @@ import argparse
 from edgeutils import ApiSession
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--segment_name', required=True,
-                    help='Name of the segment collection to modify.')
+parser.add_argument('-s', '--segment_name', required=True,
+                    help='Name of the host segment to modify.')
 args = parser.parse_args()
 
 agent_operation = 'UPGRADE'

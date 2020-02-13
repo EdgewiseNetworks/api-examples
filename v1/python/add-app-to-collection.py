@@ -9,15 +9,15 @@ import argparse
 from edgeutils import ApiSession
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--collection_name', required=True,
+parser.add_argument('-c', '--collection_name', required=True,
                     help='Name of the app collection to modify.')
-parser.add_argument('--app_name', required=True,
+parser.add_argument('-a', '--app_name', required=True,
                     help='Name of the app to add to the collection.')
-parser.add_argument('--app_hash',
+parser.add_argument('-H', '--app_hash',
                     help='SHA256 hash of the app to add to the collection.')
-parser.add_argument('--simulated', action='store_true',
+parser.add_argument('-s', '--simulated', action='store_true',
                     help='Actions are simulated. No changes are made.')
-parser.add_argument('--force', action='store_true',
+parser.add_argument('-f', '--force', action='store_true',
                     help='Force a re-evalution of the collection membership.')
 args = parser.parse_args()
 

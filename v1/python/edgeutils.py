@@ -13,7 +13,7 @@ class ApiSession:
         self.username = config['username']
         self.password = config['password']
         self.cert = (config['cert_file'], config['key_file'])
-        self.url_root = 'https://console.edgewise.services'
+        self.url_root = config['url_root']
         self.url_auth = self.url_root + '/auth/login'
         self.url_api = self.url_root + '/api/v1/sites/{}'.format(self.site_id)
         self.access_token = self.authenticate()

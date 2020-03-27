@@ -7,6 +7,7 @@
 import requests
 from urllib.parse import urlparse
 
+
 class ApiSession:
     def __init__(self, config):
         self.site_id = config['site_id']
@@ -18,7 +19,7 @@ class ApiSession:
         self.url_api = self.url_root + '/api/v1/sites/{}'.format(self.site_id)
         self.access_token = self.authenticate()
         self.headers = {'authorization':'Bearer %s' % self.access_token}
-
+        
     def authenticate(self):
         response = requests.post(
             url=self.url_auth,
@@ -27,6 +28,13 @@ class ApiSession:
         )
         response.raise_for_status()
         return response.json()['accessToken']
+    
+    def re_authenticate(self):
+        """
+            This might fix the authenticate timeout,
+            call this periodically when running scripts for more than 10 minutes
+            """
+        self.access_token = self.authenticate()
 
     def get(self, url):
         if not self._is_url(url):

@@ -5,6 +5,7 @@
 #
 
 import yaml
+from requests.exceptions import HTTPError
 from edgeutils import ApiSession
 
 agent_operation = 'UPGRADE'
@@ -29,7 +30,10 @@ if agent_operation in ['UPGRADE', 'UNINSTALL']:
 # Perform operation
 for agent in agents:
     if agent['status'] == 'CONNECTED':
-        payload = {'siteId': config['site_id'], 'name': agent['name'], 'targetId': agent['id'], 'operation': agent_operation}
-        api.post('agents/{}/operation'.format(agent['id']), payload)
-        print("Successfully ran '{}' command on host '{}'".format(agent_operation, agent['name']))
+        try:
+            payload = {'siteId': config['site_id'], 'name': agent['name'], 'targetId': agent['id'], 'operation': agent_operation}
+            api.post('agents/{}/operation'.format(agent['id']), payload)
+            print("Successfully ran '{}' command on host '{}'".format(agent_operation, agent['name']))
+        except HTTPError:
+            print("Failed to run '{}' command on host '{}'. Is it already upgraded?".format(agent_operation, agent['name']))
 

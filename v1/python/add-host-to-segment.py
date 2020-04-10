@@ -31,6 +31,9 @@ hosts = api.get('agents')
 arg_hosts_list = [x.strip().lower() for x in args.hosts_list.split(',')]
 new_hosts = [{'id': x['id']} for x in hosts if x['name'].lower() in arg_hosts_list]
 
+if not new_hosts:
+    raise Exception('No hosts found for segment')
+
 # Get segments
 collections = api.get('collections')['content']
 user_collections = [x for x in collections if x['owner'] == 'USER']

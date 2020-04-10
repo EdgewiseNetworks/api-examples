@@ -28,9 +28,13 @@ class ApiSession:
         response.raise_for_status()
         return response.json()['accessToken']
 
-    def get(self, url):
+    def get(self, url, page=0, size=10000):
         if not self._is_url(url):
-            url = self.url_api + '/{}'.format(url)
+            if '?' in url:
+                separator = '&'
+            else:
+                separator = '?'
+            url = self.url_api + '/{}{}page={}&size={}'.format(url, separator, page, size)
         response = requests.get(
             url=url,
             headers=self.headers,

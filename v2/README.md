@@ -2,7 +2,8 @@
 
 #### Prerequisites
 * Python 3.x
-* [Pipenv](https://github.com/pypa/pipenv)
+* Requests
+* PyYAML
 
 Convert your mTLS .pfx file to cert/key PEM format:  
 `openssl pkcs12 -in <mtls_cert_file>.pfx -nokeys -out cert.pem -nodes`  
@@ -10,5 +11,8 @@ Convert your mTLS .pfx file to cert/key PEM format:
 
 #### Instructions
 * Clone the repo and cd to `./python`
-* Start a Pipenv shell: `pipenv shell`
-* Run the script: `python script.py`
+* Update `config.yaml`
+* Install Python 3
+* Install the prerequisites: `pip3 install -U requests pyyaml`
+* Run the script: `python3 script.py`
+

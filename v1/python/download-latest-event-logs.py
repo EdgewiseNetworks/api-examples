@@ -22,9 +22,9 @@ event_logs = api.get('audit-event-exports/recent')
 event_logs = sorted(event_logs, key=lambda x: x['filename'])[-5:]
 
 # Get local logs and drop these entries from event logs list
-local_logs = [x.strip('./') for x in glob.glob('{}/audit_events.*.json'.format(logs_dir))]
+local_logs = [x.split('/')[-1] for x in glob.glob('{}/audit_events.*.json'.format(logs_dir))]
 event_logs = [x for x in event_logs if x['filename'] not in local_logs]
-
+print("Downloading {} latest logs.".format(len(event_logs)))
 # Download new log files to logs_dir
 if not os.path.exists(logs_dir):
     os.makedirs(logs_dir)

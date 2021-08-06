@@ -15,3 +15,6 @@ Convert your mTLS .pfx file to cert/key PEM format:
 * Install Python 3
 * Install the prerequisites: `pip3 install -U requests pyyaml`
 * Run the script: `python3 script.py`
+
+#### Config File Options
+If the username and/or password are not configured in the config.yaml file, the user will be prompted to enter it at runtime.

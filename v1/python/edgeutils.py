@@ -5,13 +5,14 @@
 #
 
 import requests
+from getpass import getpass
 from urllib.parse import urlparse
 
 class ApiSession:
     def __init__(self, config):
         self.site_id = config['site_id']
-        self.username = config['username']
-        self.password = config['password']
+        self.username = self._get_username(config)
+        self.password = self._get_password(config)
         self.cert = (config['cert_file'], config['key_file'])
         self.url_root = config['url_root']
         self.url_auth = self.url_root + '/auth/login'
@@ -90,3 +91,16 @@ class ApiSession:
         return all([result.scheme, result.netloc])
       except ValueError:
         return False
+
+    def _get_username(self, config):
+        if config['username']:
+            return config['username']
+        else:
+            return str(input("Username (e.g. 'user@domain.com'): "))
+    
+    def _get_password(self, config):
+        if config['password']:
+            return config['password']
+        else:
+            return str(getpass())
+        

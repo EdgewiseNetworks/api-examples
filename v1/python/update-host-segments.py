@@ -24,13 +24,13 @@ parser.add_argument('-m', '--missing', action='store_true',
                     help='Print list of missing hosts.')
 args = parser.parse_args()
 
+if args.missing:
+    args.dry_run = True
+
 with open('config.yaml') as f:
     config = yaml.safe_load(f)
 
 api = ApiSession(config)
-if args.missing:
-    args.dry_run = True
-
     
 # Get existing host segments
 existing_collections = api.get('collections')['content']

@@ -28,7 +28,10 @@ with open('config.yaml') as f:
     config = yaml.safe_load(f)
 
 api = ApiSession(config)
+if args.missing:
+    args.dry_run = True
 
+    
 # Get existing host segments
 existing_collections = api.get('collections')['content']
 existing_segments = [x for x in existing_collections if ((x['owner'] == 'USER') and (x['query']['type'] == 'HOST'))]

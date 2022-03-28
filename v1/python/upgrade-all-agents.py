@@ -45,5 +45,5 @@ for agent in agents:
         except HTTPError:
             print("Failed to run '{}' command on host '{}'. Is it already upgraded?".format(agent_operation, agent['name']))
         if count >= args.count:
-                break()
+                break
 
